@@ -33,7 +33,7 @@ int main(void)
 			case 6: PORTC=0b01000000; break;
 			case 7: PORTC=0b10000000; break;
 		}
-		PORTD=0b00000000;
+		PORTD=0b00000000; break;
 		for(y=0;y<8;y++)
 		{
 			PORTB = 0b00000000;
