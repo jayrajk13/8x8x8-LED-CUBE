@@ -1,0 +1,72 @@
+/*
+ * GccApplication5.c
+ *
+ * Created: 26-01-2016 14:39:16
+ *  Author: JAYRAJ GADHAVI
+ */ 
+
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
+int main(void)
+{
+	sei();
+	TCCR2 |= (1 << CS20) | (1 << CS22) | (1 << WGM21);
+	TIMSK |= (1 << OCIE2);
+	OCR2 = 10;
+	int cube[8][8][8],z=0,y=0,x=0;
+    while(1)
+    {
+        //TODO:: Please write your application code 
+    }
+	ISR()															//problem
+	{
+		switch (z)
+		{
+			case 0: PORTC=0b00000001; break;
+			case 1: PORTC=0b00000010; break;
+			case 2: PORTC=0b00000100; break;
+			case 3: PORTC=0b00001000; break;
+			case 4: PORTC=0b00010000; break;
+			case 5: PORTC=0b00100000; break;
+			case 6: PORTC=0b01000000; break;
+			case 7: PORTC=0b10000000; break;
+		}
+		PORTD=0b00000000; break;
+		for(y=0;y<8;y++)
+		{
+			PORTB = 0b00000000;
+			for(x=0;x<8;x++)
+			{	
+				if(cube[z][y][x]==1)
+				{
+					switch (x)
+					{
+						case 0: PORTB|= 1>>PB0; break;
+						case 1: PORTB|= 1>>PB1; break;
+						case 2: PORTB|= 1>>PB2; break;
+						case 3: PORTB|= 1>>PB3; break;
+						case 4: PORTB|= 1>>PB4; break;
+						case 5: PORTB|= 1>>PB5; break;
+						case 6: PORTB|= 1>>PB6; break;
+						case 7: PORTB|= 1>>PB7; break;
+					}
+				}
+			}
+			switch (y)															//problem
+			{
+				case 0:PORTD=0b00000001; break;
+				case 1:PORTD=0b00000010; break;
+				case 2:PORTD=0b00000011; break;
+				case 3:PORTD=0b00000100; break;
+				case 4:PORTD=0b00000101; break;
+				case 5:PORTD=0b00000110; break;
+				case 6:PORTD=0b00000111; break;
+				case 8:PORTD=0b00000000; break;
+			}	
+		}
+		z++;
+		if(z==8)z=0;
+	}
+}
